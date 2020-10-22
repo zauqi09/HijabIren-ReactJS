@@ -1,0 +1,6 @@
+.my-gallery {
+    object-fit: cover;
+    width: 700px;
+    height: 400px;
+    border-radius: 120px 30px 120px 30px;
+    }

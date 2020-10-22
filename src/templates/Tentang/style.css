@@ -1,0 +1,25 @@
+.align-cont{
+    text-align : "center";
+}
+
+.btn-tentang {
+    background: #fbf7f0;
+    color: #686d76;
+    size: initial;
+    width: 100%;
+    height: max-content;
+  }
+  #hidden{
+    visibility: hidden;
+  }
+  .btn-tentang:hover{
+    background: #8675a9;
+    color: #fff0f0;
+  }
+  .btn-tentang:hover #hidden{
+    visibility: visible;
+  }
+  
+  .sizefix{
+    width: 90px;
+  }
