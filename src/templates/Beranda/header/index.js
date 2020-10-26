@@ -10,7 +10,7 @@ class Header extends Component {
     render() { 
         return ( 
             <header>
-                <img className="header-container" src={img2}></img>
+                <img className="header-container" src={img2} alt=""></img>
             </header>
          );
     }

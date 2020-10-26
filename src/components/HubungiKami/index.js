@@ -7,7 +7,7 @@ class FormHubungiKami extends Component {
     }
     render() { 
         return ( 
-            <form action="#" role="form" className="contactForm">
+            <form action="#" className="contactForm">
                         <div className="row">
                         <div className="col-lg-6">
                             <div className="form-group contact-block1">

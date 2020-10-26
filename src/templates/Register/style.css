@@ -1,0 +1,56 @@
+.skip-nav {
+    margin-top:56px;
+  }
+  
+  img {
+    max-width: 100%;
+  }
+  .overlay{
+    height: 480px;
+    width: 100%;
+    background-image: linear-gradient(
+        rgba(121, 82, 179, 0.6),
+        rgba(121, 82, 179, 0.6)
+      ),url("https://shopee.co.id/inspirasi-shopee/wp-content/uploads/2018/05/ayana.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  
+  }
+  
+  .title { 
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+    margin: 0;
+  }
+  
+  .signup-form {
+    padding: 15px;
+    background: #fafafa;
+  }
+  
+  .form-control {
+    background-color: transparent;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 20px;
+    &:focus {border-color: #111;}
+  }
+  [type="text"] {color: #111;}
+  [type="password"] {color: #111;}
+  .btn-form {
+    position: relative;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #fff;
+    background: #7952B3;
+    border-radius: 30px;
+    &:focus,
+    &:hover {background: lighten(#111, 13%);}
+  }

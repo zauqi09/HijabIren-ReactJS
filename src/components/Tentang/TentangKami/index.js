@@ -12,7 +12,7 @@ class TentangKami extends Component {
             <div className="container">
                 <div className="row">
                     <div className="col-md-2">
-                        <img src={logo} width="100%"/>
+                        <img src={logo} width="100%" alt=""/>
                         <h6 className="align-cont"><i>Sumber: clipartkey</i></h6>
                     </div>
                     <div className="col-md-10">

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './style.css'
-import logo from '../../img/logo.png'
+import { Redirect } from 'react-router-dom'
 import { VisiMisi,TentangKami } from '../../components';
 class Tentang extends Component {
     constructor(props) {
@@ -8,9 +8,12 @@ class Tentang extends Component {
         this.state = {  }
     }
     render() { 
+        if (this.props.isLoggedIn) {
+            return <Redirect to='/masuk'/>;
+        }
         return ( 
         <>
-
+        
           <TentangKami/>
           <VisiMisi/>
         </>

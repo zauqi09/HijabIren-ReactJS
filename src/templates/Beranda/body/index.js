@@ -7,7 +7,8 @@ import {Beranda} from "../../../components"
 class BodyBeranda extends Component {
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = { 
+         }
     }
     render() { 
         let textBody1 = "HijabIrene merupakan perusahaan garment yang bergerak dalam bidang retail busana muslim dengan tagline Maju Bersama Allah. HijabIrene merupakan salah satu perusahaan kerudung instan pertama dan terbesar di Indonesia dengan mengeluarkan produk andalan berupa kerudung instan dan produk lain yang juga telah dikembangkan yaitu busana muslim diantaranya kemko, tunik, kastun, kemko,tunik serta perlengkapan lain seperti ciput/inner kerudung dan aksesoris.",

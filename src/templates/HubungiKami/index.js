@@ -11,7 +11,7 @@ class HubungiKami extends Component {
         return ( 
             <div className="hub-kami">
                 <div className="v80">
-                    <img src="https://vanillahijab.com/media/weltpixel/owlcarouselslider/images/w/e/web_banner_no_clikc_buttom.jpg" className="login" />
+                    <img src="https://vanillahijab.com/media/weltpixel/owlcarouselslider/images/w/e/web_banner_no_clikc_buttom.jpg" alt="" className="login" />
                 </div>
                 <div className="title-hub">
                     <h2>Silakan Hubungi Kami</h2>

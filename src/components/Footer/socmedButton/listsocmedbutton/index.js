@@ -14,7 +14,7 @@ class Listsocmedbutton extends Component {
                     </a>
                 </li>
                 <li className="list-inline-item mr-3">
-                    <a href="">
+                    <a href="twitter.com">
                         <i className={this.props.twittericon}></i>
                     </a>
                 </li>

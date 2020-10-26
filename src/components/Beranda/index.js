@@ -6,7 +6,7 @@ class Beranda extends Component {
         this.state = {  }
     }
     render() { 
-        if (this.props.align=="left") {
+        if (this.props.align==="left") {
             return ( 
                 <div className="row align-items-center no-gutters mb-4 mb-lg-5" >
                     <div className={this.props.kelas1}>
