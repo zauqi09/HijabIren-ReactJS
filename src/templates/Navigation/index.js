@@ -1,25 +1,18 @@
 import React, { Component } from 'react';
 import {Navigation } from "../../components"
+import { connect } from "react-redux"
+
 class Nav extends Component {
     constructor(props) {
         super(props);
         this.state = { 
         }
     }
-    shouldComponentUpdate(lastProp, nextProp) {
-        console.log("props: ", this.props);
-        console.log("lastProp: ", lastProp);
-        if (lastProp.isLoggedIn !== this.props.isLoggedIn)
-            return true
-        return false
-    }
 
-    //mengubah statuslogin,redirect,isadminlogin
     change = () =>{
-        this.props.statUs()
+        // this.props.statUs()
         this.props.redir()
-        this.props.backtofalse()
-
+        this.props.doLogout(this.props.userList)
     }
 
     render() { 
@@ -36,7 +29,7 @@ class Nav extends Component {
                                     <Navigation link="/">Beranda</Navigation>
                                     <Navigation link="/tentang">Tentang</Navigation>
                                     <Navigation link="/hubungi-kami">Hubungi Kami</Navigation>
-                                    { this.props.isLoggedIn ?
+                                    { this.props.statusLogin ?
                                     <>
                                         <Navigation link="/data-user">Data User</Navigation>
                                         <li className="nav-item">
@@ -52,11 +45,22 @@ class Nav extends Component {
                                 </ul>
                             </div>
                         </div>
+                        
                     </nav>  
+                    
                 );
         } 
 
     
 }
- 
-export default Nav;
+const mapStateToProps = (state)  =>  ({
+    statusLogin: state.auth.isLoggedIn,
+    userList : state.auth.userListFromApp,
+    })
+
+
+const mapDispatchToProps = (dispatch) => ({
+    doLogout: (userList) => dispatch({ type: "LOGOUT", payload: userList }),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Nav)

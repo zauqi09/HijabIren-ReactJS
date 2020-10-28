@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 import { DataUserList } from '../../components';
+import { connect } from "react-redux"
 class DataUser extends Component {
     constructor(props) {
         super(props);
@@ -10,7 +11,7 @@ class DataUser extends Component {
 
     
     render() { 
-        if (!this.props.isLoggedIn) {
+        if (!this.props.statusLogin) {
             return <Redirect to="/masuk" />;
         }
             return ( 
@@ -27,7 +28,7 @@ class DataUser extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                            <DataUserList who={this.props.whoLoggedIn} adminloginsue={this.props.isAdminLoggedIn} user={this.props.dataUser}/>              
+                            <DataUserList/>              
                         </tbody>
                     </table>
                     </div>
@@ -36,5 +37,12 @@ class DataUser extends Component {
         
     }
 }
- 
-export default DataUser;
+
+const mapStateToProps = (state) => ({
+    statusLogin: state.auth.isLoggedIn,
+    whoLoggedIn: state.auth.dataLogin
+  })
+  
+  
+  
+  export default connect(mapStateToProps)(DataUser)
