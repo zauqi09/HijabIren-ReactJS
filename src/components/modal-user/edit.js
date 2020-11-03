@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Modal,Button, FormControl, FormLabel,} from 'react-bootstrap'
+import { connect } from "react-redux"
 class EditUser extends Component {
     constructor(props) {
         super(props);
@@ -13,12 +14,11 @@ class EditUser extends Component {
     }
 
     componentDidMount = () =>{
-        const index = this.props.index
         this.setState({
-            email : this.props.user[index].email,
-            name : this.props.user[index].name,
-            password : this.props.user[index].password,
-            type : this.props.user[index].type
+            email : this.props.user.email,
+            name : this.props.user.name,
+            password : this.props.user.password,
+            type : this.props.user.type
         })
     }
 
@@ -42,16 +42,20 @@ class EditUser extends Component {
         })
     }   
     editProfil= async(Obj,email) =>{
-        await fetch('http://localhost:3010/edit/'+email, {
+        await fetch('http://localhost:3010/users/edit/'+email, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer '+this.props.dataLogin.token
             },
             body: JSON.stringify(Obj)
         })
-        .then(response => response.text())
-        .then(result => console.log(result))
+        .then(response => response.json())
+        .then(result => {
+            //console.log(result)
+            window.alert(result.message)
+        })
         .catch(error => console.log('error', error));
         window.location.reload()
     }
@@ -59,14 +63,12 @@ class EditUser extends Component {
         const {name,email,password,passwordConfirm,type} = this.state
         if (password === passwordConfirm){
             this.editProfil({name,email,password,type},email)
-            window.alert("Data telah tersimpan")
         } else {
             window.alert("Password tidak sama")
         }
     }
     render() { 
         const usr = this.props.user
-        const index = this.props.index
         return(
             <>
             <Button style={{marginLeft:"20px"}} size="sm" variant="primary" onClick={this.handleShow}>
@@ -80,9 +82,9 @@ class EditUser extends Component {
                         <FormLabel>Nama</FormLabel>
                         <FormControl onChange={this.onChangeInput} name="name" type="text" value={this.state.name}></FormControl>
                         <FormLabel>Email</FormLabel>
-                        <FormControl onChange={this.onChangeInput} name="email" type="text" value={usr[index].email} readOnly></FormControl>
+                        <FormControl onChange={this.onChangeInput} name="email" type="text" value={usr.email} readOnly></FormControl>
                         <FormLabel>Tipe Akun</FormLabel>
-                        <FormControl onChange={this.onChangeInput} name="type" type="text" value={usr[index].type===1?"Admin":"User"} readOnly></FormControl>
+                        <FormControl onChange={this.onChangeInput} name="type" type="text" value={usr.type===1?"Admin":"User"} readOnly></FormControl>
                         <FormLabel>Password</FormLabel>
                         <FormControl onChange={this.onChangeInput} name="password" type="password" ></FormControl>
                         <FormLabel>Konfirmasi Password</FormLabel>
@@ -103,4 +105,13 @@ class EditUser extends Component {
     }
 }
  
-export default EditUser;
+const mapStateToProps = (state) => ({
+    statusLogin: state.auth.isLoggedIn,
+    dataLogin: state.auth.dataLogin
+  })
+  const mapDispatchToProps = (dispatch) => ({
+    SaveToRedux: (userList) => dispatch({ type: "SAVETOREDUX", payload: userList })
+  })  
+  
+  
+export default connect(mapStateToProps,mapDispatchToProps)(EditUser)

@@ -12,17 +12,19 @@ class Register extends Component {
             password : "",
             name :"",
             type :2,
-            path : ""
+            path : "",
+            resultFetch : {}
          }
     }
     onChangeInput = e => {
         this.setState({        
             [e.target.name]:e.target.value
         })
+        console.log(e.target.value);
     }
 
-    postData= (dataRegist)=>{
-        fetch('http://localhost:3010/register', {
+    postData= async(dataRegist)=>{
+        await fetch('http://localhost:3010/auth/register', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -30,31 +32,17 @@ class Register extends Component {
             },
             body: JSON.stringify(dataRegist)
         })
-        .then(response => response.text())
-        .then(result => console.log(result))
+        .then(response => response.json())
+        .then(result => {
+            window.alert(result.message)
+        })
         .catch(error => console.log('error', error));
     }
 
     onRegist =  ()=> {
         const {email,password,name,passwordConfirm,type} = this.state
-        const UserList = this.props.userList.find(user => (user.email === email))
-        if (email && password){   
-            if (UserList){
-                window.alert('Email sudah digunakan!');
-            }else{
-                if (password === passwordConfirm){ 
-                    window.alert('Berhasil Daftar!')
-                    this.postData({email,name,password,type})
-                    this.props.doLogin({email,password,type})
-                }   
-                else {
-                    window.alert('Password tidak sama!'); 
-                }
-            }
-        }
-        else {
-            window.alert("Email dan Password tidak boleh kosong!")
-        }
+        const regisData = {email,password,name,passwordConfirm,type}
+        this.postData(regisData)
       }
 
     render() { 
@@ -98,7 +86,7 @@ class Register extends Component {
                     <div className="m-t-lg">
                     <ul className="list-inline text-center">
                         <li>
-                        <Link to="/" className="btn btn-primary btn-block" name="buttonDaftar" type="button" value="Daftar" onClick={this.onRegist} >Daftar</Link>
+                        <Link to="/masuk" className="btn btn-primary btn-block" name="buttonDaftar" type="button" value="Daftar" onClick={this.onRegist} >Daftar</Link>
                         </li>
                         
                     </ul>

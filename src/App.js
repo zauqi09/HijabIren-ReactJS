@@ -14,17 +14,9 @@ class App  extends Component {
      }
   }
 
-  componentDidMount = () =>{
-     fetch('http://localhost:3010/user', {mode:'cors'})
-        .then(response => response.json())
-        .then(json => this.props.SaveToRedux(json.user))
-  }
+  
 
-  componentDidUpdate = () =>{
-    fetch('http://localhost:3010/user', {mode:'cors'})
-       .then(response => response.json())
-       .then(json => this.props.SaveToRedux(json.user))
-  }
+  
   
   ChangeDirect = ()=>{
     this.setState((oldState) => (
@@ -58,9 +50,7 @@ const mapStateToProps = (state) => ({
   userLogin: state.auth.dataLogin
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  SaveToRedux: (userList) => dispatch({ type: "SAVETOREDUX", payload: userList })
-})
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+
+export default connect(mapStateToProps)(App)

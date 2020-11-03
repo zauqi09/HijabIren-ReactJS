@@ -10,6 +10,7 @@
     "bootstrap": "^4.5.3",
     "hooks": "^0.3.2",
     "jquery": "^3.5.1",
+    "jwt-decode": "^3.0.0",
     "lodash": "^4.17.20",
     "lodash.throttle": "^4.1.1",
     "mini-create-react-context": "^0.4.1",

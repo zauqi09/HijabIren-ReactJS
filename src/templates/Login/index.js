@@ -9,6 +9,7 @@ class Login extends Component {
         this.state = { 
             email :"",
             password : "",
+            dataLogin :{}
     }
 }
 
@@ -22,24 +23,33 @@ class Login extends Component {
             [e.target.name]:e.target.value
         })
     }
-    
+    postData= async(dataLogin)=>{
+        await fetch('http://localhost:3010/auth/login', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataLogin)
+        })
+        .then(response => response.json())
+        .then(result => {
+            window.alert(result.message)
+            const dataUser = result.data[0].dataUser
+            const token = result.data[0].token
+            this.props.doLogin({dataUser,token})
+        })
+        .catch(error => console.log('error', error));
+    }
     onLogin = () => {
         const { email, password } = this.state
         if (email && password){    
-            let statusLogin = this.props.userList.find(user => (user.email === email && user.password === password))
-            if (statusLogin){
-                window.alert('Berhasil Login!')
-                //this.props.changedir()
-                let type = statusLogin.type
-                this.props.doLogin({email,password,type})      
-            }else {
-                window.alert('Password atau Email Tidak Sesuai')
-            }
-          }
-          else {
-              window.alert("Email dan Password tidak boleh kosong!")
-          }
+            this.postData({email,password})
         }
+        else {
+              window.alert("Email dan Password tidak boleh kosong!")
+        }
+    }
         
         
     render() { 

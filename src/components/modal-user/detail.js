@@ -21,7 +21,6 @@ class DetailUser extends Component {
     }   
     render() { 
         const usr = this.props.user
-        const index = this.props.index
         return(
             <>
             <Button size="sm" variant="secondary" onClick={this.handleShow}>
@@ -33,11 +32,11 @@ class DetailUser extends Component {
                     </Modal.Header>
                     <Modal.Body>
                         <FormLabel>Nama</FormLabel>
-                        <FormControl  type="text" value={usr[index].name} readOnly></FormControl>
+                        <FormControl  type="text" value={usr.name} readOnly></FormControl>
                         <FormLabel>Email</FormLabel>
-                        <FormControl  type="text" value={usr[index].email} readOnly></FormControl>
+                        <FormControl  type="text" value={usr.email} readOnly></FormControl>
                         <FormLabel>Tipe Akun</FormLabel>
-                        <FormControl  type="text" value={usr[index].type===1?"Admin":"User"} readOnly></FormControl>
+                        <FormControl  type="text" value={usr.type===1?"Admin":"User"} readOnly></FormControl>
                     </Modal.Body>
 
                     <Modal.Footer>

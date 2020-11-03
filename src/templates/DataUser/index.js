@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 import { DataUserList } from '../../components';
+
 import { connect } from "react-redux"
 class DataUser extends Component {
     constructor(props) {
@@ -9,6 +10,25 @@ class DataUser extends Component {
          }
     }
 
+    componentDidMount = async() =>{
+        await fetch('http://localhost:3010/users', {
+            mode:'cors',
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer '+this.props.dataLogin.token
+            }
+        })
+           .then(response => response.json())
+           .then(result => {
+                //const jsondecoded = jwt(result.token)
+                //console.log(result.data[0].token)
+                const token = result.data[0].token
+                this.props.SaveToRedux(token)
+                
+            })
+     }
     
     render() { 
         if (!this.props.statusLogin) {
@@ -40,9 +60,11 @@ class DataUser extends Component {
 
 const mapStateToProps = (state) => ({
     statusLogin: state.auth.isLoggedIn,
-    whoLoggedIn: state.auth.dataLogin
+    dataLogin: state.auth.dataLogin
+  })
+  const mapDispatchToProps = (dispatch) => ({
+    SaveToRedux: (userList) => dispatch({ type: "SAVETOREDUX", payload: userList })
   })
   
   
-  
-  export default connect(mapStateToProps)(DataUser)
+  export default connect(mapStateToProps,mapDispatchToProps)(DataUser)
