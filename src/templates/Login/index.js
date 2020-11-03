@@ -12,6 +12,11 @@ class Login extends Component {
     }
 }
 
+    // componentDidMount = () =>{
+    //     fetch('127.0.0.1:3010/user', {mode:'cors'})
+    //     .then(response => response.json())
+    //     .then(json => json.map(user =>this.props.SaveToRedux(user)))
+    // }
     onChangeInput = e => {
         this.setState({        
             [e.target.name]:e.target.value
@@ -24,9 +29,9 @@ class Login extends Component {
             let statusLogin = this.props.userList.find(user => (user.email === email && user.password === password))
             if (statusLogin){
                 window.alert('Berhasil Login!')
-                this.props.changedir()
+                //this.props.changedir()
                 let type = statusLogin.type
-                this.props.doLogin({email,password,type},this.props.userList)      
+                this.props.doLogin({email,password,type})      
             }else {
                 window.alert('Password atau Email Tidak Sesuai')
             }
@@ -86,7 +91,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    doLogin: (dataLogin,userlist) => dispatch({ type: "LOGIN", payload: {dataLogin,userlist}}),
+    doLogin: (dataLogin) => dispatch({ type: "LOGIN", payload: dataLogin}),
+    
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(Login)

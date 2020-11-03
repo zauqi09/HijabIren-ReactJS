@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { DaftarForm , Input} from '../../components';
+import { DaftarForm } from '../../components';
 import './style.css'
-import { Redirect } from 'react-router-dom'
 import { connect } from "react-redux"
+import { Link } from "react-router-dom"
 class Register extends Component {
     constructor(props) {
         super(props);
@@ -20,6 +20,21 @@ class Register extends Component {
             [e.target.name]:e.target.value
         })
     }
+
+    postData= (dataRegist)=>{
+        fetch('http://localhost:3010/register', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataRegist)
+        })
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+    }
+
     onRegist =  ()=> {
         const {email,password,name,passwordConfirm,type} = this.state
         const UserList = this.props.userList.find(user => (user.email === email))
@@ -28,10 +43,9 @@ class Register extends Component {
                 window.alert('Email sudah digunakan!');
             }else{
                 if (password === passwordConfirm){ 
-                    this.props.changedir()
                     window.alert('Berhasil Daftar!')
-                    this.props.doRegist({email,password,name,type},this.props.userList)
-                    this.props.changedir()
+                    this.postData({email,name,password,type})
+                    this.props.doLogin({email,password,type})
                 }   
                 else {
                     window.alert('Password tidak sama!'); 
@@ -44,9 +58,6 @@ class Register extends Component {
       }
 
     render() { 
-            if (this.props.statusredirect) {
-                return <Redirect to='/masuk'/>;
-            }
         return ( 
             <div className="container-fluid skip-nav">  
             <div className="row">
@@ -87,7 +98,7 @@ class Register extends Component {
                     <div className="m-t-lg">
                     <ul className="list-inline text-center">
                         <li>
-                        <Input dataInput={this.state.objDaftar} classInput="btn btn-primary btn-block" nameInput="buttonDaftar" typeInput="button" valueInput="Daftar" onClickInput={this.onRegist} />
+                        <Link to="/" className="btn btn-primary btn-block" name="buttonDaftar" type="button" value="Daftar" onClick={this.onRegist} >Daftar</Link>
                         </li>
                         
                     </ul>
@@ -108,8 +119,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    doLogin: (dataLogin,userlist) => dispatch({ type: "LOGIN", payload: {dataLogin,userlist}}),
-    doRegist: (dataRegister,userlist) => dispatch({ type: "REGISTER", payload: {dataRegister,userlist}}),
+    doLogin: (dataLogin) => dispatch({ type: "LOGIN", payload: dataLogin}),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(Register)

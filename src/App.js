@@ -14,16 +14,17 @@ class App  extends Component {
      }
   }
 
-  // componentDidMount = () =>{
-  //    fetch('https://jsonplaceholder.typicode.com/users')
-  //       .then(response => response.json())
-  //       .then(json => {
-  //         const APIUser = json.map(user =>{
-  //           return {...user, password:this.state.defaultPass, type:this.state.defaultType}
-  //         })
-  //         this.props.SaveToRedux(APIUser)
-  //       })
-  // }
+  componentDidMount = () =>{
+     fetch('http://localhost:3010/user', {mode:'cors'})
+        .then(response => response.json())
+        .then(json => this.props.SaveToRedux(json.user))
+  }
+
+  componentDidUpdate = () =>{
+    fetch('http://localhost:3010/user', {mode:'cors'})
+       .then(response => response.json())
+       .then(json => this.props.SaveToRedux(json.user))
+  }
   
   ChangeDirect = ()=>{
     this.setState((oldState) => (

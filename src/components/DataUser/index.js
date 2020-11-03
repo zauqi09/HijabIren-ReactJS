@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './style.css'
 import { connect } from "react-redux"
+import {DetailUser, EditUser} from "../../components"
+import {Button} from 'react-bootstrap'
+
 class DataUserList extends Component {
     constructor(props) {
         super(props);
@@ -8,11 +11,20 @@ class DataUserList extends Component {
 
          }
     }
-    componentDidMount= () =>{
-        console.log("userList : ",this.props.userList);
+    
+    deleteUser= async(email) =>{
+        await fetch('http://localhost:3010/delete/'+email, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+        window.location.reload()
     }
-    
-    
 
     render() { 
 
@@ -28,16 +40,17 @@ class DataUserList extends Component {
                             <td>{user.name}</td>
                             <td> {who.type===1?
                                     <>  
-                                        <button className='btn btn sizefix'>Detail</button>
-                                        <button className='btn btn-warning sizefix'> Edit</button>
-                                        <button className='btn btn-danger sizefix'>Delete</button>
+                                        <DetailUser user={this.props.userList} index={idx}/>
+                                        <EditUser user={this.props.userList} index={idx}/>
+                                        <Button style={{marginLeft:"20px"}} size="sm" variant="danger" 
+                                            onClick={()=> { if (window.confirm('Apakah Data Ingin Dihapus?')) this.deleteUser(user.email) }}>Delete</Button>
                                     </>
-                                        :   
+                                        :
                                         <>
                                         {who.email===user.email&&
                                             <>
-                                                <button className='btn btn sizefix'>Detail</button>
-                                                <button className='btn btn-warning sizefix'> Edit</button>
+                                                <DetailUser user={this.props.userList} index={idx}/>
+                                                <EditUser user={this.props.userList} index={idx}/>
                                             </>
                                         }
                                         </>

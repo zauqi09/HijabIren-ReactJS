@@ -8,6 +8,10 @@ import LoginForm from "./Login"
 import Input from "./Input"
 import DaftarForm from "./Daftar"
 import DataUserList from "./DataUser"
-import ModalDataUser from "./Modal"
+import DetailUser from "./modal-user/detail"
+import EditUser from "./modal-user/edit"
 
-export{FooterCont,Beranda,Navigation,FormHubungiKami,VisiMisi,TentangKami,LoginForm,Input,DaftarForm,DataUserList,ModalDataUser}
+export{FooterCont,Beranda,Navigation,
+    FormHubungiKami,VisiMisi,
+    TentangKami,LoginForm,
+    Input,DaftarForm,DataUserList,DetailUser,EditUser}
