@@ -35,11 +35,12 @@ class Login extends Component {
         .then(response => response.json())
         .then(result => {
             window.alert(result.message)
-            const dataUser = result.data[0].dataUser
-            const token = result.data[0].token
+            console.log(result);
+            let dataUser = result.data[0].dataUser
+            let token = result.data[0].token
             this.props.doLogin({dataUser,token})
         })
-        .catch(error => console.log('error', error));
+        .catch(error => console.log("User tidak terdaftar"));
     }
     onLogin = () => {
         const { email, password } = this.state

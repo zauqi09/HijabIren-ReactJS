@@ -7,9 +7,6 @@ class EditUser extends Component {
         this.state = { 
             email: "",
             name: "",
-            password: "",
-            passwordConfirm : "",
-            type: 0,
      }
     }
 
@@ -17,7 +14,6 @@ class EditUser extends Component {
         this.setState({
             email : this.props.user.email,
             name : this.props.user.name,
-            password : this.props.user.password,
             type : this.props.user.type
         })
     }
@@ -41,31 +37,26 @@ class EditUser extends Component {
             show : true
         })
     }   
-    editProfil= async(Obj,email) =>{
+    editProfil= async(name,email) =>{
         await fetch('http://localhost:3010/users/edit/'+email, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
                 'Authorization' : 'Bearer '+this.props.dataLogin.token
             },
-            body: JSON.stringify(Obj)
+            body: JSON.stringify({name,email})
         })
         .then(response => response.json())
         .then(result => {
-            //console.log(result)
             window.alert(result.message)
         })
-        .catch(error => console.log('error', error));
-        window.location.reload()
+        .catch(error => console.log('error', error))
+        this.props.fetchdata()
     }
     handleEdit =() =>{
-        const {name,email,password,passwordConfirm,type} = this.state
-        if (password === passwordConfirm){
-            this.editProfil({name,email,password,type},email)
-        } else {
-            window.alert("Password tidak sama")
-        }
+        const {name,email} = this.state
+        this.editProfil(name,email)
     }
     render() { 
         const usr = this.props.user
@@ -84,11 +75,7 @@ class EditUser extends Component {
                         <FormLabel>Email</FormLabel>
                         <FormControl onChange={this.onChangeInput} name="email" type="text" value={usr.email} readOnly></FormControl>
                         <FormLabel>Tipe Akun</FormLabel>
-                        <FormControl onChange={this.onChangeInput} name="type" type="text" value={usr.type===1?"Admin":"User"} readOnly></FormControl>
-                        <FormLabel>Password</FormLabel>
-                        <FormControl onChange={this.onChangeInput} name="password" type="password" ></FormControl>
-                        <FormLabel>Konfirmasi Password</FormLabel>
-                        <FormControl onChange={this.onChangeInput} name="passwordConfirm" type="password" ></FormControl>
+                        <FormControl onChange={this.onChangeInput} name="type" type="text" value={usr.typename} readOnly></FormControl>
                     </Modal.Body>
 
                     <Modal.Footer>

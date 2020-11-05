@@ -36,7 +36,7 @@ class DetailUser extends Component {
                         <FormLabel>Email</FormLabel>
                         <FormControl  type="text" value={usr.email} readOnly></FormControl>
                         <FormLabel>Tipe Akun</FormLabel>
-                        <FormControl  type="text" value={usr.type===1?"Admin":"User"} readOnly></FormControl>
+                        <FormControl  type="text" value={usr.typename} readOnly></FormControl>
                     </Modal.Body>
 
                     <Modal.Footer>

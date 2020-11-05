@@ -1,8 +1,8 @@
 const initialState = {
     isLoggedIn: false,
-    userListFromApp:[],
+    //userListFromApp:[],
     dataLogin : {},
-    dataRegister :{}
+    //dataRegister :{}
 }
 
 

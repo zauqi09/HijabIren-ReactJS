@@ -11,8 +11,7 @@ class Nav extends Component {
 
     change = () =>{
         // this.props.statUs()
-        this.props.redir()
-        this.props.doLogout(this.props.userList)
+        this.props.doLogout()
     }
 
     render() { 
@@ -60,7 +59,7 @@ const mapStateToProps = (state)  =>  ({
 
 
 const mapDispatchToProps = (dispatch) => ({
-    doLogout: (userList) => dispatch({ type: "LOGOUT", payload: userList }),
+    doLogout: () => dispatch({ type: "LOGOUT"}),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Nav)

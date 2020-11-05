@@ -29,7 +29,7 @@ class App  extends Component {
             <>
             <Router>
               <Navigation
-                          redir={this.ChangeDirect} 
+                          
                           />
               <Switch>
                 <Route path="/" exact component={() => <Beranda />} />
